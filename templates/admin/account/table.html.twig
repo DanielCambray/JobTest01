@@ -1,0 +1,38 @@
+<table id="accounts-table" class="table">
+    <thead>
+    <tr>
+        <th class="active">Id</th>
+        <th class="active">Name</th>
+        <th class="active">Gender</th>
+        <th class="active">Email</th>
+        <th class="active">Birthday</th>
+        <th class="active">Action</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for account in accounts %}
+        <tr>
+            <td>#{{ account.id }}</td>
+            <td>{{ account.lastName }} {{ account.firstName }} </td>
+            <td>{{ (account.gender) ? account.gender.getType() : '' }}</td>
+            <td>{{ account.email }}</td>
+            <td>{{ account.birthday|date('Y-m-d') }}</td>
+            <td>
+                <ul class="list-inline">
+                    <li>
+                        <a href="{{ path('admin_account_edit', {id: account.id}) }}" class="btn btn-default">Edit</a>
+                    </li>
+                    <li>
+                        <form id="delete-form-account-{{ account.id }}" method="post" action="{{ path('admin_account_delete', {id: account.id}) }}" onsubmit="return confirm('Are you sure you want to delete this account?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ account.id) }}">
+                            <button class="btn btn-danger">Delete</button>
+                        </form>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

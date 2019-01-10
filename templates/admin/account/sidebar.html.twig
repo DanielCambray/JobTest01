@@ -1,0 +1,12 @@
+
+<ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
+
+{% for country in countries %}
+
+    <li role="presentation">
+        <a href="{{ path('admin_account_by_country', {'code': country.code|lower}) }}">- {{ country.name }} <span class="badge pull-right">{{ country.nb }}</span></a>
+    </li>
+
+{% endfor %}
+
+</ul>

@@ -1,0 +1,6 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+
+    <input type="hidden" name="_referer" value="{{ (referer is defined) ? referer : '' }}">
+
+{{ form_end(form) }}

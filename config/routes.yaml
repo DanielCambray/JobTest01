@@ -1,0 +1,12 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+_wdt:
+  resource: "@WebProfilerBundle/Resources/config/routing/wdt.xml"
+  prefix:   /_wdt
+_profiler:
+  resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
+  prefix:   /_profiler
+fos_user:
+  resource: "@FOSUserBundle/Resources/config/routing/all.xml"

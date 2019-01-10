@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="label.firstName">
+                <source>label.firstName</source>
+                <target>First name</target>
+            </trans-unit>
+            <trans-unit id="label.lastName">
+                <source>label.lastName</source>
+                <target>Last name</target>
+            </trans-unit>
+            <trans-unit id="label.gender">
+                <source>label.gender</source>
+                <target>Gender</target>
+            </trans-unit>
+            <trans-unit id="label.email">
+                <source>label.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="label.country">
+                <source>label.country</source>
+                <target>Country</target>
+            </trans-unit>
+            <trans-unit id="label.birthday">
+                <source>label.birthday</source>
+                <target>Birthday</target>
+            </trans-unit>
+            <trans-unit id="label.job">
+                <source>label.job</source>
+                <target>Job</target>
+            </trans-unit>
+            <trans-unit id="notification.account_created">
+                <source>notification.account_created</source>
+                <target>Your account has been created !</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
+
