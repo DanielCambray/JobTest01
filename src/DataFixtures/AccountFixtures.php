@@ -97,7 +97,6 @@ class AccountFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             JobFixtures::class,
-            CountryFixtures::class
         ];
     }
 }
