@@ -6,6 +6,7 @@ namespace App\Controller\Admin;
 use App\Events;
 use App\Entity\Account;
 use App\Entity\Country;
+use App\Form\TestType;
 use App\Form\AccountType;
 use App\Repository\AccountRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -17,6 +18,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Intl\Intl;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Controller used to manage accounts in the backend.
@@ -41,12 +44,10 @@ class AccountController extends AbstractController
      * @param int $page
      * @param PaginatorInterface $paginator
      *
-     * @return Reponse
+     * @return Response
      */
     public function index(AccountRepository $accountRepository, int $page, PaginatorInterface $paginator): Response
     {
-        //$accounts = $accountRepository->findBy([],['country' => 'ASC']);
-
         $accounts = $paginator->paginate(
             $accountRepository->getPaginatedAccountsByCountryQuery(),
             $page,
@@ -69,29 +70,33 @@ class AccountController extends AbstractController
      *     methods={"GET"},
      *     name="admin_account_by_country",
      *     defaults={"page": 1},
-     *     requirements={"page" = "\d+"}
+     *     requirements={"page" = "\d+", "code" = "[a-z]{2}"}
      * )
      *
      * @param AccountRepository $accountRepository
      * @param int $page
      * @param PaginatorInterface $paginator
-     * @param Country $country
+     * @param string $code
      *
      * @return Response
      */
-    public function indexByCountry(AccountRepository $accountRepository, int $page, PaginatorInterface $paginator, Country $country): Response
+    public function indexByCountry(AccountRepository $accountRepository, int $page, PaginatorInterface $paginator, string $code): Response
     {
-        //$accounts = $accountRepository->findBy(['country' => $country]);
+        // Check that the country code is valid
+        $country = Intl::getRegionBundle()->getCountryName(strtoupper($code));
+        if (!$country) {
+            throw $this->createNotFoundException('The country code is invalid');
+        }
 
         $accounts = $paginator->paginate(
-            $accountRepository->getPaginatedAccountsByCountryQuery($country),
+            $accountRepository->getPaginatedAccountsByCountryQuery($code),
             $page,
             $this->getParameter('max_display_accounts')
         );
 
         $countries = $accountRepository->countByCountry();
 
-        return $this->render('admin/account/index.html.twig', ['accounts' => $accounts, 'country' => $country, 'countries' => $countries]);
+        return $this->render('admin/account/index.html.twig', ['accounts' => $accounts, 'countryCode' => $code, 'countries' => $countries]);
     }
 
     /**
@@ -140,7 +145,7 @@ class AccountController extends AbstractController
 
         return $this->render('admin/account/new.html.twig', [
             'account' => $account,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 

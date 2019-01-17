@@ -71,6 +71,9 @@ class AdminControllerTest extends WebTestCase
         $lastName = "Dupont";
         $firstName = "Charles";
         $birthday = "1959-03-21";
+        $birthdayDay = "21";
+        $birthdayMonth = "03";
+        $birthdayYear = "1959";
         $email = "charles@test.org";
         $gender = 'M';
         $country = 'FR';
@@ -83,7 +86,9 @@ class AdminControllerTest extends WebTestCase
             'account[gender][type]' => $gender,
             'account[email]' => $email,
             'account[country]' => $country,
-            'account[birthday]' => $birthday,
+            'account[birthday][year]' => $birthdayYear,
+            'account[birthday][month]' => $birthdayMonth,
+            'account[birthday][day]' => $birthdayDay,
             'account[job]' => $job,
         ]);
         $client->submit($form);
@@ -97,7 +102,7 @@ class AdminControllerTest extends WebTestCase
         $this->assertSame($lastName, $account->getLastName());
         $this->assertSame($firstName, $account->getFirstName());
         $this->assertSame($gender, $account->getGender()->getType());
-        $this->assertSame($country, $account->getCountry()->getCode());
+        $this->assertSame($country, $account->getCountry());
         $this->assertSame($birthday, $account->getBirthday()->format('Y-m-d'));
         $this->assertSame($job, $account->getJob()->getCode());
     }
