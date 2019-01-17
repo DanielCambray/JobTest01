@@ -34,18 +34,6 @@ class JobType extends AbstractType
                 'required' => false,
                 'constraints' => [
                 ]
-            ])
-            ->add('parent', EntityType::class, [
-                'label' => 'label.parent_category',
-                'required' => false,
-                'class' => Category::class,
-                'choice_label'  => function (Category $category) {
-                    $prefix = str_repeat('-', $category->getLevel());
-
-                    return $prefix . ' ' . $category->getName();
-                },
-                'constraints' => [
-                ]
             ]);
     }
 

@@ -59,7 +59,7 @@ class Account
     protected $job;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Country")
+     * @ORM\Column(type="string", length=2)
      */
     protected $country;
 

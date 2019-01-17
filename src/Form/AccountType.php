@@ -10,22 +10,22 @@ namespace App\Form;
 
 use App\Entity\Account;
 use App\Entity\Job;
-use App\Entity\Country;
 use App\Form\GenderType;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\Country;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 
 class AccountType extends AbstractType
 {
@@ -60,18 +60,15 @@ class AccountType extends AbstractType
                     new Length(['max' => 128])
                 ]
             ])
-            ->add('country', EntityType::class, [
+            ->add('country', CountryType::class, [
                 'label' => 'label.country',
-                'class' => Country::class,
-                'choice_label' => 'name',
-                'choice_value' => 'code',
                 'constraints' => [
                     new NotBlank(),
+                    new Country()
                 ]
             ])
-            ->add('birthday', DateType::class, [
+            ->add('birthday', BirthdayType::class, [
                 'label' => 'label.birthday',
-                'widget' => 'single_text',
                 'required' => true,
                 'constraints' => [
                     new NotBlank(),

@@ -34,7 +34,7 @@ class AccountFixtures extends Fixture implements DependentFixtureInterface
         $account->setLastName('Zuwala');
         $account->setBirthday(new \DateTime('1979-12-10'));
         $account->setEmail('daniel.zuwala@gmail.com');
-        $account->setCountry($manager->merge($this->getReference('country-FR')));
+        $account->setCountry('FR');
         $account->setGender($maleGender);
         $manager->persist($account);
 
@@ -44,7 +44,7 @@ class AccountFixtures extends Fixture implements DependentFixtureInterface
         $account->setGender($femaleGender);
         $account->setBirthday(new \DateTime('1980-11-03'));
         $account->setEmail('test@email.org');
-        $account->setCountry($manager->merge($this->getReference('country-FR')));
+        $account->setCountry('FR');
 
         $manager->persist($account);
 
@@ -64,7 +64,7 @@ class AccountFixtures extends Fixture implements DependentFixtureInterface
             $account->setBirthday(new \DateTime('1956-03-21'));
             $account->setEmail($email);
             $countryCode = $countryCodes[array_rand($countryCodes)];
-            $account->setCountry($manager->merge($this->getReference('country-' . $countryCode)));
+            $account->setCountry($countryCode);
 
             $manager->persist($account);
         }

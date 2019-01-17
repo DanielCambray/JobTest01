@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Account;
-use App\Entity\Country;
+//use App\Entity\Country;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\AbstractQuery;
@@ -21,11 +21,11 @@ class AccountRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Country $country
+     * @param string $country
      *
      * @return AbstractQuery
      */
-    public function getPaginatedAccountsByCountryQuery(Country $country = null) : AbstractQuery
+    public function getPaginatedAccountsByCountryQuery(string $country = null) : AbstractQuery
     {
         if ($country) {
             return $this->createQueryBuilder('a')
@@ -47,11 +47,9 @@ class AccountRepository extends ServiceEntityRepository
     public function countByCountry()
     {
         $qb = $this->createQueryBuilder('a')
-            ->join('a.country', 'c')
             ->select('count(a) as nb')
-            ->addSelect('c.code, c.name')
-            ->groupBy('a.country')
-            ->orderBy('c.name');
+            ->addSelect('a.country as code')
+            ->groupBy('a.country');
 
         return $qb->getQuery()->getResult();
     }

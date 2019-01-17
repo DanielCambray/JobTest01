@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <h1>Accounts {{ (country is defined) ? ' - ' ~ country.name : '' }}</h1>
+    <h1>Accounts {{ (countryCode is defined) ? ' - ' ~ countryCode|country : '' }}</h1>
 
     <a href="{{ path('admin_account_new') }}" class="btn btn-success pull-right">Create new</a>
 
